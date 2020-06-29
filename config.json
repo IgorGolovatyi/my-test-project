@@ -1,0 +1,42 @@
+{
+  "name": "passport",
+  "version": "0.0.1",
+  "options": {
+    "local": {
+      "usernameField": "email",
+      "passwordField": "password",
+      "session": false
+    },
+    "facebook": {
+      "clientID": "1014940955327390",
+      "clientSecret": "6c1de6a7118f688c7d68452212186c49",
+      "callbackURL": "users/auth/facebook",
+      "profileFields": ["emails", "name", "photos"]
+    },
+    "google": {
+      "clientID": "693544226968-914i6u3o7dookek0r8vr8rlbvk324tbp.apps.googleusercontent.com",
+      "clientSecret": "QNrPQNrP_00f0nTAfQygB4db",
+      "callbackURL": "users/auth/google",
+      "profileFields": ["emails"]
+    }
+  },
+  "optionsProd": {
+    "local": {
+      "usernameField": "email",
+      "passwordField": "password",
+      "session": false
+    },
+    "facebook": {
+      "clientID": "165392994371643",
+      "clientSecret": "f9901b259ae2fd8a2183efe6030df5bf",
+      "callbackURL": "users/auth/facebook",
+      "profileFields": ["emails", "name", "photos"]
+    },
+    "google": {
+      "clientID": "1011010048152-roujbhe8r2b75200ol6i7vn8243sva14.apps.googleusercontent.com",
+      "clientSecret": "jd9qcBul4JRFg0sQycOZETIG",
+      "callbackURL": "users/auth/google",
+      "profileFields": ["emails"]
+    }
+  }
+}
