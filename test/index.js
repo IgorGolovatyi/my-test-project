@@ -6,7 +6,6 @@ const expect = chai.expect;
 const tetsQueue = new Array(9).fill(false);
 tetsQueue[0] = true;
 
-let newsUrl = null;
 let newsId = null;
 
     before(async()=>{
@@ -315,13 +314,13 @@ let newsId = null;
                 done();
                 });
         });
-        it(`Get news, not valid link, status 403`, function(done) {
+        it(`Get news, not valid link, status 404`, function(done) {
             chai.request(url)
                 .get(notValidUrl)
                 .set('content-type', 'application/json')
                 .send()
                 .end(function(err, res) {
-                expect(res).to.have.status(403);
+                expect(res).to.have.status(404);
                 expect(err).to.be.null;
                 done();
                 });

@@ -17,7 +17,7 @@ module.exports = (router, middlewares, mongoose)=> {
         const result = await findByIdAndUpdate({ 
             name: favoritesModelName, id, update: { $push: { favorites: _id }}
         });
-        return res.status(200).send('Save OK');
+        return res.status(result ? 200 : 404).send(result ? 'Save OK': 'Not found');
     });
 
     router.get('/favorites', authJWT, async function getFaforites({ user, query }, res) {

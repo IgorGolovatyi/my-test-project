@@ -1,6 +1,5 @@
-module.exports = (router, middlewares, passport, mongoose)=> {
+module.exports = (router, middlewares, createJWT, mongoose)=> {
     const { googleCbMdw, googleOauth2Mdw, authJWT, refreshJWT } = middlewares;
-    const { createJWT } = passport;
     const { createOneRecord, findByIdAndUpdate, findOne } = mongoose;
 
     const refreshTokeName = 'refreshToken';

@@ -1,5 +1,5 @@
-module.exports = (router, middlewares, passport, mongoose)=> {
-    require('./users')(router, middlewares, passport, mongoose);
+module.exports = (router, middlewares, { createJWT }, mongoose)=> {
+    require('./users')(router, middlewares, createJWT, mongoose);
     require('./feed')(router, middlewares, mongoose);
     require('./favorites')(router, middlewares, mongoose);
     

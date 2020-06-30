@@ -1,0 +1,401 @@
+{
+	"info": {
+		"_postman_id": "c800df56-875e-48ea-bc09-5c7cb94f0d96",
+		"name": "Test",
+		"description": "# Introduction\nWhat does your API do?\n\n# Overview\nThings that the developers should know about\n\n# Authentication\nWhat is the preferred way of using the API?\n\n# Error Codes\nWhat errors and status codes can a user expect?\n\n# Rate limit\nIs there a limit to the number of requests an user can send?",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Google auth",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/users/auth/google",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"users",
+						"auth",
+						"google"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Logout",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{accessToken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/users/logout",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"users",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Refresh",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "bb8fd171-c652-4bb6-aa5a-f1ca42233556",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "468bfa80-978b-4175-a6c0-0939261eccc6",
+						"exec": [
+							"const res = JSON.parse(responseBody);",
+							"pm.collectionVariables.set(\"refreshToken\", res.refreshToken);",
+							"pm.collectionVariables.set(\"accessToken\", res.accessToken);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{refreshToken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/users/refresh",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"users",
+						"refresh"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add news",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{accessToken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"\\\"More than one thing at a time\\\"\",\n    \"description\": \"Lars Wikman:\\n\\nA bit of writing on what potential we leave on the table when we use tools that trade technical merit for other factors. And why Elixir just might have higher potential for web services than many other popular languages and runtimes.\\r\\n\\n\\n\\n\\n\\nDiscu…\",\n    \"urlToImage\": null,\n    \"content\": \"2020-06-17On a recent Elixir Outlaws episodeChris Keathley told us all a nice story of the advantages of Elixir\\r\\n as opposed to Ruby. His frustration with Ruby and appreciation of how Elixir works re… [+7496 chars]\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/feed",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"feed"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete news",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{accessToken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/feed/5ef929c9df06b1397e811870",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"feed",
+						"5ef929c9df06b1397e811870"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "favorites",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{accessToken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/favorites",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"favorites"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "0",
+							"disabled": true
+						},
+						{
+							"key": "skip",
+							"value": "0",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "favorites/save",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{accessToken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/favorites/save/5ef8d6d610cea941e00f9961",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"favorites",
+						"save",
+						"5ef8d6d610cea941e00f9961"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "favorites/:id",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "6558275c-d84b-4868-8d4c-b89b4f9a63fa",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{accessToken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/favorites/5ef7cd5a5df60a139de72fde",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"favorites",
+						"5ef7cd5a5df60a139de72fde"
+					],
+					"query": [
+						{
+							"key": "Authorization",
+							"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlZjhhZDA4M2E4M2I2NzdhMDZhZDg2NyIsImV4cGlyZSI6MTU5MzM1OTEyODcwMCwidHlwZSI6ImFjY2Vzc1Rva2VuIiwiaWF0IjoxNTkzMzU1NTI4fQ.zz9molnZJM8YKvL7d-jn3vN1FO_qYduqc7x55Av1QYY",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all news",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{accessToken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/feed",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"feed"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "10",
+							"disabled": true
+						},
+						{
+							"key": "skip",
+							"value": "0",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get news by id",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{accessToken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/feed/news/5ef8d6d610cea941e00f9955",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"feed",
+						"news",
+						"5ef8d6d610cea941e00f9955"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{successToken})",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "f2c2cc26-2580-4e01-b45a-c5384c7d986a",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "775e357b-4d2b-4850-a562-669ce1261bfd",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "60460434-0c3f-455f-b630-d1db4ade5401",
+			"key": "baseUrl",
+			"value": "http://localhost:3030/v1"
+		},
+		{
+			"id": "148c8af4-ddc3-487c-8b08-4dbe588b8937",
+			"key": "accessToken",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlZjhiMzYyYjEyMGE0MDQ3Y2FkMDQ4MSIsImV4cGlyZSI6MTU5MzQ3NjAwNDI3MSwidHlwZSI6ImFjY2Vzc1Rva2VuIiwiaWF0IjoxNTkzNDcyNDA0fQ.mSLAnOOOwta5sVtLRV1wS2mTEwOn5DH3p4H_63KNIWk"
+		},
+		{
+			"id": "930994e8-b0ae-4ff5-98f6-ffb032e1a383",
+			"key": "refreshToken",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlZjhiMzYyYjEyMGE0MDQ3Y2FkMDQ4MSIsImV4cGlyZSI6MTU5NjA2NDQwNDI3MSwidHlwZSI6InJlZnJlc2hUb2tlbiIsImlhdCI6MTU5MzQ3MjQwNH0.PenqSWbHY93ea8b31rgxAllOjT9JGkLIwaqKnruaHw0"
+		}
+	],
+	"protocolProfileBehavior": {}
+}

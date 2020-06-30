@@ -7,7 +7,7 @@ const usersModelName = 'users';
 
 module.exports = (passport, mongoose) => async (req, res, next) => {
     try {
-        const { headers: { authorization }} = req;
+        const { headers: { authorization = '' }} = req;
         const { findById } = mongoose;
         const refreshToken = authorization.split(' ')[1];
 

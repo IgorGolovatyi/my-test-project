@@ -1,0 +1,27 @@
+version: '3'
+volumes:
+  mongodb:
+
+services:
+  mongodb:
+    container_name: mongodb
+    restart: unless-stopped
+    volumes:
+      - mongodb:/bitnami/mongodb
+    env_file:
+      - .env
+    image: bitnami/mongodb:latest
+
+  Test-Task:
+    container_name: Test-Task
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    links:
+      - mongodb
+    image: test-task-api:test
+
+
