@@ -20,6 +20,8 @@ services:
       dockerfile: Dockerfile
     env_file:
       - .env
+    ports: 
+      - '3030:3030'
     links:
       - mongodb
     image: test-task-api:test
