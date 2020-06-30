@@ -27,7 +27,6 @@ module.exports = (router, middlewares, mongoose)=> {
             name: favoritesModelName, id, path: favoritesModelName, 
             limit: Number(limit), skip: Number(skip) 
         });
-        // console.log(result.favorites[0].author);
         return res.status(200).send(result.favorites || []);
     });
 
