@@ -3,12 +3,13 @@ const invalidTypeError = 'Please, send accessc token';
 const notRtfreshToken = 'Please, auth for google';
 
 const usersModelName = 'users';
+const jwtName = 'jwt';
 
 module.exports = (passport, mongoose) => async (req, res, next) => {
     try {
         const { findById } = mongoose;
         
-        passport.authenticate('jwt', async (err, jwtData={}) => {
+        passport.authenticate(jwtName, async (err, jwtData={}) => {
             const { id, type } = jwtData;
             if (err) return res.status(401).send(err);
             if (type != accessTokenName) return res.status(401).send(invalidTypeError);

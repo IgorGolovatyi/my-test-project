@@ -4,6 +4,7 @@ const invalidTypeError = 'Please, send refresh token';
 const notRtfreshToken = 'Please, auth for google';
 
 const usersModelName = 'users';
+const jwtName = 'jwt';
 
 module.exports = (passport, mongoose) => async (req, res, next) => {
     try {
@@ -11,7 +12,7 @@ module.exports = (passport, mongoose) => async (req, res, next) => {
         const { findById } = mongoose;
         const refreshToken = authorization.split(' ')[1];
 
-        passport.authenticate('jwt', async (err, jwtData={}, token) => {
+        passport.authenticate(jwtName, async (err, jwtData={}, token) => {
             const { id, type } = jwtData;
             if (err) return res.status(401).send(err);
             if (type != refreshTokeName) return res.status(401).send(invalidTypeError);

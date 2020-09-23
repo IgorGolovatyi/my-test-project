@@ -1,12 +1,12 @@
+const stringType = 'string';
+const user = 'user';
+
+
 module.exports = { 
-    name: 'users',
+    name: user,
     schema: {
-        googleId: { type: 'string' },
-        refreshToken: { type: 'string' },
-        displayName: { type: 'string' },
-    },
-    // firstRecord: {
-    //     googleId: 'testuser',
-    //     refreshToken: 
-    // }, 
+        googleId: { type: stringType },
+        refreshToken: { type: stringType },
+        displayName: { type: stringType },
+    }, 
 };

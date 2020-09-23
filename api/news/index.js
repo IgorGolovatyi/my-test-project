@@ -1,6 +1,8 @@
 const cron = require('node-cron');
 const msToOneDay = 1000 * 60 * 60 * 24;
 const newsModelName = 'news';
+const statusOk = 'ok';
+const scheduled = '00 14 * * *';
 
 module.exports = (mongoose, newsapi)=> {
     const { everything } = newsapi;
@@ -12,8 +14,8 @@ module.exports = (mongoose, newsapi)=> {
         const request = await everything(fromDate, toDate);
         const { status, articles, code, message } = request;
 
-        if (!status == 'ok' && iterator == 3) return console.log('[GET NEWS]', code, message);
-        if (!status == 'ok') return setTimeout(getNews, 1000 * 60 * 5, ++iterator);
+        if (!status == statusOk && iterator == 3) return console.log('[GET NEWS]', code, message);
+        if (!status == statusOk) return setTimeout(getNews, 1000 * 60 * 5, ++iterator);
 
         const payload = articles.map((record) => {
             return { insertOne: { document: { ...record, source: record.source.name }}};
@@ -22,7 +24,7 @@ module.exports = (mongoose, newsapi)=> {
         
     };
     // getNews();
-    cron.schedule('00 14 * * *', async() => {
+    cron.schedule(scheduled, async() => {
         await getNews();
     }, {
         scheduled: true,

@@ -1,25 +1,31 @@
 const cron = require('node-cron');
+const scheduled = '00 02 * * *';
+const objectType = 'object';
+const payloadName = 'payload';
+const _idValue = '_id';
+const idValue = 'id';
+const naemValue = 'name'
 
 module.exports = (сachе, mongoose)=> {
     const { deleteCache, getAndSetCache, clearAllCache } = сachе;
     const { deleteOne, findByIdAndUpdate, findById } = mongoose;
 
     mongoose.deleteOne = deleteCache(deleteOne, [{
-        type: 'object',
-        values: ['name', { type: 'object', name: 'payload', values: ['_id'] }],
+        type: objectType,
+        values: [naemValue, { type: objectType, name: payloadName, values: [_idValue] }],
     }]);
 
     mongoose.findByIdAndUpdate = deleteCache(findByIdAndUpdate, [{
-        type: 'object',
-        values: ['name', 'id'],
+        type: objectType,
+        values: [naemValue, idValue],
     }]);
 
     mongoose.indById = getAndSetCache(findById, [{
-        type: 'object',
-        values: ['name', 'id'],
+        type: objectType,
+        values: [naemValue, idValue],
     }]);
 
-    cron.schedule('00 02 * * *', async() => {
+    cron.schedule(scheduled, async() => {
         await clearAllCache();
     }, {
         scheduled: true,
